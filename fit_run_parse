@@ -1,0 +1,31 @@
+from fitparse import FitFile
+
+class FitObject:
+    
+    def __init__(self, file:FitFile):
+        self.file = file
+        self.names = []
+        self.heart_rates = []
+        self.distances = []
+        self.times = []
+        self.rekkids = []
+        
+        
+        self.parse_records()
+    
+        
+    def parse_records(self):
+        self.index = 0  # initialize index counter
+        
+        for message in self.file.get_messages("record"):
+            for data in message:
+                print(data)
+                
+                #if data.name == "activity_type" and data.value == "running":
+                #    self.index += 1  # increment index counter
+                #    
+                # Assign new index value to selected elements
+                #if data.name in ['activity_type', 'distance', 'timestamp', 'enhanced_speed', 'heart_rate', 'position_lat', 'position_long', 'speed']:
+                #    data.value = self.index
+                #    
+                #self.names.append(data.name)
