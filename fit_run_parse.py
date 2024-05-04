@@ -1,14 +1,14 @@
-import os
+import numpy as np
 import matplotlib.pyplot as plt
-import seaborn as sns
 import pandas as pd
+import os
 from datetime import datetime as dt
 from fitparse import FitFile
 
 class FitObject:
     
-    def __init__(self, file:FitFile):
-        self.file = file
+    def __init__(self, file:str):
+        self.file = FitFile(file)
         self.names = []
         self.heart_rates = []
         self.distances = []
@@ -26,7 +26,7 @@ class FitObject:
         
     def parse_records(self):
         self.index = 0  # initialize index counter
-        
+
         for message in self.file.get_messages("record"):
             for data in message:
                 #print(data.name, " : ", data.value)
@@ -56,4 +56,3 @@ class FitObject:
         
         for i in range(len(self.distances)):
             self.day_time.append((self.hours[i] * 3600) + (self.minutes[i] * 60) + (self.seconds[i]))
-        
